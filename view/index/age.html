@@ -1,0 +1,146 @@
+<div>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <td>出生日期：</td>
+        <td>
+            <select id="year">
+                <?php for($i = 2019; $i >=1900; $i-- ): ?>
+                <option
+                <?php if($year == $i){ echo "selected"; } ?>><?=$i ?></option>
+                <?php endfor;?>
+            </select>
+            年
+            <select id="month">
+                <?php for($i = 1; $i <=12; $i++ ): ?>
+                <option
+                <?php if($month == $i){ echo "selected"; }?> ><?php  if($i<10) { echo '0';} echo $i; ?></option>
+                <?php endfor;?>
+            </select>
+            月
+            <select id="day">
+                <?php for($i = 1; $i <=31; $i++ ): ?>
+                <option
+                <?php if($day == $i){ echo "selected"; }?>><?php  if($i<10) { echo '0';} echo $i; ?></option>
+                <?php endfor;?>
+            </select>
+            日 &nbsp;
+            <select id="hour">
+                <?php for($i = 0; $i <=23; $i++ ): ?>
+                <option
+                <?php if($hour == $i){ echo "selected"; }?>><?php  if($i<10) { echo '0';} echo $i; ?></option>
+                <?php endfor;?>
+            </select>
+            时
+            <input id="check" type="button" value="查询">
+        </td>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>周岁</td>
+            <td>{$age}</td>
+        </tr>
+        <tr>
+            <td>生肖</td>
+            <td>{$date.animal}</td>
+        </tr>
+        <tr>
+            <td>星座</td>
+            <td>{$date.constellation}座</td>
+        </tr>
+        <tr>
+            <td>(干支)年柱</td>
+            <td>{$date.ganzhi_year}</td>
+        </tr>
+        <tr>
+            <td>(干支)月柱</td>
+            <td>{$date.ganzhi_month}</td>
+        </tr>
+        <tr>
+            <td>(干支)日柱</td>
+            <td>{$date.ganzhi_day}</td>
+        </tr>
+        <tr>
+            <td>(干支)时柱</td>
+            <td>{$date.ganzhi_hour}</td>
+        </tr>
+        <tr>
+            <td>(五行)年</td>
+            <td>{$date.wuxing_year}</td>
+        </tr>
+        <tr>
+            <td>(五行)月</td>
+            <td>{$date.wuxing_month}</td>
+        </tr>
+        <tr>
+            <td>(五行)日</td>
+            <td>{$date.wuxing_day}</td>
+        </tr>
+        <tr>
+            <td>(五行)时</td>
+            <td>{$date.wuxing_hour}</td>
+        </tr>
+        <tr>
+            <td>公历出生日期</td>
+            <td>{$birthday}</td>
+        </tr>
+        <tr>
+            <td>农历出生日期</td>
+            <td>{$date.lunar_year}-{$date.lunar_month}-{$date.lunar_day}</td>
+        </tr>
+        <tr>
+            <td>生存时间</td>
+            <td>您在这个世界上生活了：{$live_month}个月</td>
+        </tr>
+        <tr>
+            <td>剩余时间</td>
+            <td>您在这个世界上还剩余：{$last_month}个月 &nbsp;(人的平均寿命为75岁，900个月)</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+    <div class="text-center table-responsive"><h3>人生进度表</h3>
+        <table class="table table-hover table-bordered">
+            <tbody>
+            <?php
+            $tmp_num = 1;
+            $row = '';
+            for($i=0;$i<15;$i++) {
+                $column = '';
+                for($j=0;$j<60;$j++) {
+                    $tmp_num++;
+                    if($tmp_num > $live_month) {
+                        $column .= " <td class='bg-success'></td> ";
+                    } else {
+                        $column .= " <td class='bg-default'></td> ";
+                    }
+                }
+             echo "<tr>$column</tr> ";
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        &nbsp;
+    </div>
+
+</div>
+
+<script>
+
+
+    $("#check").click(function () {
+        var $year = $("#year").val();
+        var $month = $("#month").val();
+        var $day = $("#day").val();
+        var $hour = $("#hour").val();
+        window.location.href = "/age-" + $year + "-" + $month + "-" + $day + "-" + $hour  + ".html";
+    });
+
+</script>
+
+

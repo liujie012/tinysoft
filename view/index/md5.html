@@ -1,0 +1,49 @@
+<script src="/public/static/js/md5.js"></script>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">MD5加密</h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <!--内容块开始-->
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">加密前</span>
+                <input type="text" class="form-control" id="str" placeholder="要加密的文本" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group" style="margin-top: 20px;">
+                <span class="input-group-addon" id="basic-addon2">加密后</span>
+                <input type="text" class="form-control" id="estr" placeholder="加密后的文本" aria-describedby="basic-addon2">
+            </div>
+            <div class="btn-group" role="group" aria-label="..." style="margin-top: 20px;">
+                <button type="button" class="btn btn-primary" onclick="md5encode();">MD5加密</button>
+                <button type="button" class="btn btn-danger" onclick="Empty();">清空结果</button>
+            </div>
+
+            <!--内容块结束-->
+        </div>
+        <input type="hidden" id="encode" value="1"/>
+        <div class="panel-footer"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    function md5encode() {
+        $("#estr").val(CryptoJS.MD5($("#str").val()));
+    }
+
+
+    function Empty() {
+        document.getElementById('str').value = '';
+        document.getElementById('estr').value = '';
+        document.getElementById('str').select();
+    }
+
+    function GetFocus() {
+        document.getElementById('str').focus();
+    }
+</script>

@@ -1,0 +1,196 @@
+<link rel='dns-prefetch' href='//cdn.staticfile.org'/>
+<!-- Site CSS -->
+<link href="//cdn.staticfile.org/layer/2.3/skin/layer.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/public/static/json/css/global.css"/>
+<script src="/public/static/json/js/global.js?20180929"></script>
+<script src="//cdn.staticfile.org/clipboard.js/1.7.1/clipboard.min.js"></script>
+<div class="aw-container-wrap" style="margin-top:16px;">
+
+    <div class="row">
+        <div class="aw-content-wrap clearfix">
+            <div class=" aw-main-content" style="max-height:2000px">
+
+                <div style="clear:both"></div>
+                <style>
+                    .a2016 {
+                        color: white;
+                        font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu;
+                        text-align: center;
+                        background: red;
+                        border-radius: 2px;
+                    }
+
+                    .touxiang {
+                        height: 20px;
+                        line-height: 45px;
+                    }
+                </style>
+
+                <link href="/public/static/json/css/index2.css" rel="stylesheet">
+                <script type="text/javascript">
+
+                    if (typeof JSON === 'undefined') {
+                        document.write('<sc' + 'ript type="text/javascript" src="c/js/json2.js"></sc' + 'ript>');
+                    }
+                </script>
+                <link rel="stylesheet" type="text/css" href="/public/static/json/css/style.css?20180511"/>
+                <style>
+                    .tg1 {
+                        float: left;
+                        margin-left: 10px;
+                        width: 220px;
+                        height: 34px;
+                        color: white;
+                        text-align: center;
+                        line-height: 34px;
+                    }
+
+                    #aliy {
+                        color: tomato
+                    }
+
+                    #ecoding {
+                        color: #e0a009
+                    }
+
+                    #cpp {
+                        color: #067aa9
+                    }
+
+                    #baishudata {
+                        color: #f2733d
+                    }
+                </style>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="media">
+                            json格式化
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding-top: 0px;padding-bottom: 0px;">
+                        <!--内容块开始-->
+                        <div style="clear: both;"></div>
+
+
+                        <div style="height: 400px;">
+                            <div>
+                                <form name="main" onsubmit="return false" style="margin-top: 10px;">
+                                    <div style="width:80%;float: left;">
+                                            <textarea id="code" name="code"
+                                                      style="display: none;resize:both"></textarea>
+                                        <div class="grippie" id="btnShouOrFang" onclick="" style="">点击俺最大化</div>
+                                    </div>
+                                    <div style="width:20%;float: left;">
+                                        <div style="margin-top: 10px;margin-left: 10px;">
+                                            <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                                <button type="button " id="saveData" class="btn btn-default">
+                                                    保存校验数据
+                                                </button>
+                                                <button type="button" id="clearJsonCache" class="btn btn-default">
+                                                    清空记录
+                                                </button>
+                                            </div>
+                                            <ul class="list-group" style="margin-top: 4px;" id="jsonCacheS">
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="validate">
+                                        <div class="left1 validate" id="btn2019092014" style="float:left">
+                                            <div class="btn-group" role="group" aria-label="...">
+
+                                                <button class="copy hide" data-ga="copy"></button>
+                                                <input name="validate" data-ga="validate" type="submit"
+                                                       id="validate" class="btn btn-primary" value="格式化校验">
+                                                <input type="button" value="压缩" id="btnYasuo"
+                                                       class="btn btn-default"/>
+                                                <input type="button" value="转义" id="btnZhuanyi"
+                                                       class="btn btn-default"/>
+                                                <input type="button" value="去除转义" id="btnRemoveZhuanyi"
+                                                       class="btn btn-default"/>
+                                                <input type="button" value="unicode转中文" id="btnToChar"
+                                                       class="btn btn-info"/>
+                                                <input type="button" value="转GET参数" id="btnToGET"
+                                                       class="btn btn-default"/>
+                                                <input click-type="copy"
+                                                       onclick="$(this).attr('data-clipboard-text',app.editor.getValue())"
+                                                       class="btn btn-default" type="button" value="复制"/>
+                                                <input name="validate" class="btn btn-default"
+                                                       onclick="javascript:json_input.value='';$('#json_input').focus(); "
+                                                       type="reset" value="清空"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div style="clear: both;"></div>
+                        <section id="result-container">
+                            <pre id="result" class="error"></pre>
+                        </section>
+                        <div style="margin-top: 10px;clear: both;"></div>
+                        <div class="panel panel-default" style="display:none" id="articlesSDiv">
+                            <div class="panel-body">
+                                <ol id="articlesS">
+
+                                </ol>
+
+                            </div>
+                        </div>
+                        <script src="/public/static/json/js/sub_index.js"></script>
+                        <script src="/public/static/json/js/bejson_index20190109.min.js"></script>
+                        <style type="text/css">
+                            #ga {
+                                width: 100%;
+                                text-align: left;
+                                margin-top: 10px;
+                            }
+
+                            @media screen and (max-width: 1960px) {
+                                #ga {
+                                    width: 100%
+                                }
+                            }
+                        </style>
+                        <div id="ga">
+                            <!--json-->
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <script>
+                    jQuery(document).keypress(function (e) {
+                        if ((e.metaKey && e.which == 13) || (e.ctrlKey && e.which == 10)) {
+                            $(".btn-primary").click();
+                        }
+                    });
+                </script>
+
+                <!-- content ed -->
+                <script src="//cdn.staticfile.org/layer/2.3/layer.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/static/json/js/bejsoncommon.js?v=20170711"></script>
+<script>
+    function getCookie(cookieName) {
+        var cookieValue = "";
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                if (cookie.substring(0, cookieName.length + 2).trim() == cookieName.trim() + "=") {
+                    cookieValue = cookie.substring(cookieName.length + 2, cookie.length);
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+</div>

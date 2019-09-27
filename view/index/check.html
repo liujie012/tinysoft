@@ -1,0 +1,52 @@
+<div>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="22%"><label class="control-label" for="id_number">身份证号</label></th>
+            <th class="form-inline">
+                <input id="id_number" class="form-control " value="<?php echo isset($_GET['id']) ? $_GET['id'] : '';?>"
+                       type="text" placeholder="请输入身份证号码">
+                <input id="check" class="btn btn-default" type="button" value="查询">
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>省</td>
+            <td><?php echo $province['name'] ? $province['name'] : '未知';;?></td>
+        </tr>
+        <tr>
+            <td>市</td>
+            <td><?php echo $city['name'] ? $city['name'] : '未知';;?></td>
+        </tr>
+        <tr>
+            <td>区</td>
+            <td><?php echo $county['name'] ? $county['name'] : '未知';?></td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td><?php echo "{$info['year']}年{$info['month']}月{$info['day']}日";?></td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td><?php echo $sex; ?></td>
+        </tr>
+        <tr>
+            <td>尾号校验</td>
+            <td><?php if($real_last_number == $user_last_number) { echo '正确'; } else { echo '错误，应为：',$real_last_number; } ?>   </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $("#check").click(function () {
+        window.location.href = "/index.php/index/check/id/" + $("#id_number").val();
+    });
+
+</script>
+
+

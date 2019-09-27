@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">缩短网址</h4>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <div style="width:auto;">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="lang_url" class="col-sm-2 control-label">长网址</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" id="lang_url" rows="8"
+                                          placeholder="请输入要转换的长网址"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <button id="transfer" type="button" class="btn btn-default">转换</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="baidu_short_url" class="col-sm-2 control-label">百度短网址</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="baidu_short_url" placeholder="转换后的短网址">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="tencent_short_url" class="col-sm-2 control-label">腾讯短网址</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="tencent_short_url" placeholder="转换后的短网址">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="sina_short_url" class="col-sm-2 control-label">新浪短网址</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="sina_short_url" placeholder="转换后的短网址">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $("#transfer").click(function () {
+            $lang_url = $("#lang_url").val();
+
+
+            var ajax = new XMLHttpRequest();
+            var token = '5e3300a32b11a4d872311f39b1b3a4f8';
+            var longUrl = $("#lang_url").val();
+            var termOfValidity = "1-year";
+
+            ajax.open('post', 'https://dwz.cn/admin/v2/create', true);
+
+            ajax.setRequestHeader("Content-Type", "application/json");
+            ajax.setRequestHeader("Token", token);
+
+            ajax.send(JSON.stringify({
+                url: longUrl,
+                TermOfValidity: termOfValidity
+            }));
+
+            ajax.onreadystatechange = function () {
+                var json = $.parseJSON(ajax.responseText);
+                if (ajax.readyState === 4 && ajax.status === 200) {
+                    if (json.Code == 0) {
+                        $("#baidu_short_url").val(json.ShortUrl);
+                    } else {
+                        $("#baidu_short_url").val(json.ErrMsg);
+                    }
+
+                } else {
+                    $("#baidu_short_url").val("转换失败");
+                }
+            }
+        });
+
+
+    </script>
+
+</div>
