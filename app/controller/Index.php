@@ -26,6 +26,16 @@ class Index extends BaseController
         return View::fetch();
     }
 
+    public function download()
+    {
+        return View::fetch();
+    }
+
+    public function zip()
+    {
+        return download("./tools-master.zip", 'code.zip');
+    }
+
     public function age($year=2000, $month = 10, $day = 10, $hour = 0) {
 
         $birthday = $year . '-' . $month . '-' . $day;

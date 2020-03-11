@@ -17,6 +17,7 @@ Route::get('think', function () {
 Route::get('hello/:name', 'index/hello');
 
 Route::any('timestamp', 'index/timestamp')->name('timestamp');
+Route::any('download', 'index/download')->name('download');
 Route::any('shorturl', 'index/shorturl')->name('shorturl');
 Route::any('md5', 'index/md5')->name('md5');
 Route::any('age', 'index/age')->name('age');
