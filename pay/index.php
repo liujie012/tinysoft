@@ -181,7 +181,7 @@ $qr = base64_encode($qr);
 </head>
 <body>
 <div class="content-container qr-code">
-    <h3>--支付宝付款：￥<?php echo $totalAmount; ?>--</h3>
+    <h3>支付宝付款：￥<?php echo $totalAmount; ?>后下载</h3>
     <img src="./pay.php?url=<?php echo $qr; ?>">
 </div>
 
