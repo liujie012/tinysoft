@@ -1,0 +1,713 @@
+@charset "utf-8";
+*{word-wrap:break-word}
+/* 初始化 */
+html,body,div,span,iframe,
+h1,h2,h3,h4,h5,h6,p,
+blockquote,pre,a,address,big,cite,code,del,em,font,img,ins,small,strong,var,b,u,i,center,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend{margin:0;padding:0;}
+body {
+  color: #333;
+  background: #fff;
+  font: 400 12px/1.5 "Microsoft YaHei","Helvetica Neue", "Marmelad", "Lucida Grande", "Hiragino Sans GB", Georgia, sans-serif;
+  -webkit-user-select: inherit;
+}
+ol,ul{list-style:none;}
+em, i {
+    font-style: normal;
+}
+ul,li,ol,dl {list-style:none;}
+a,a:link,a:hover,a:visited,a:active{
+	color:#0c79b1;
+    text-decoration: none;
+    font-family: 'Microsoft YaHei', Tahoma, Arial, sans-serif;
+}
+a:hover{color:#f90;}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-family: 'Microsoft YaHei';
+	font-weight:normal;
+}
+a,button,input,select,textarea,:focus{font-family: 'Microsoft YaHei';font-size:100%;resize:none;outline:none;cursor: pointer}
+sub,sup{vertical-align:baseline}
+/*img*/
+img{border:0;vertical-align:middle}
+a img,img{-ms-interpolation-mode:bicubic}
+/* 设置HTML5元素为块 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+/* 字体图标 start */
+@font-face {
+    font-family: "rei";
+    src: url("../font/rei.eot");
+    /* IE9 */
+    src: url("../font/reiIeFix.eot") format("embedded-opentype"), /* IE6-IE8 */
+    url("../font/rei.woff") format("woff"), /* chrome 6+、firefox 3.6+、Safari5.1+、Opera 11+ */
+    url("../font/rei.ttf") format("truetype") /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    /*url("../font/rei.svg") format("svg");*/
+    /* iOS 4.1- */
+}
+.iconfont {
+    font-family: "rei";
+    font-style: normal;
+    font-weight: normal;
+    cursor: default;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 字体图标 end */
+.commodity-message-row {
+    height: 22px;
+    overflow: hidden;
+    padding-top: 14px;
+}
+.commodity-message-row .long-content {
+    max-width: 400px;
+    _width: 400px;
+}
+.commodity-message-row .first {
+    font-weight: 700;
+    font-size: 14px;
+    float: left;
+}
+.commodity-message-row .second, .commodity-message-row .first {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.commodity-message-row .short-content {
+    max-width: 165px;
+    _width: 165px;
+}
+.commodity-message-row .second {
+    margin-left: 20px;
+    float: left;
+    margin-top: 1px;
+}
+a,a:link,a:hover,a:visited,a:active {
+    color: #a6a6a6;
+}
+body .fn-hide,
+.fn-hide,
+.hidden {
+    display: none;
+}
+.fn-clear {
+    zoom: 1;
+}
+html body .ft-center {
+    text-align: center;
+}
+.fn-clear:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+html body .fn-left,
+.fn-left {
+    float: left;
+}
+.ui-tip {
+    background: #E8E8E8;
+    position: absolute;
+    z-index: 9999;
+}
+.topbar {
+    width: 100%;
+    height: 26px;
+    background: url("../img/line.png") repeat-x 0 0
+}
+.topbar .topbar-wrap {
+    background: url("../img/line.png") repeat-x 0 0;
+    width: 950px;
+    margin: 0 auto
+}
+.topbar .topbar-wrap a,
+.topbar .topbar-wrap span {
+    float: right;
+    color: #fff;
+    padding: 4px 15px;
+    background: url("../img/line2.png") no-repeat 0 7px
+}
+.topbar .topbar-wrap .topbar-link-last {
+    padding-right: 0
+}
+.topbar .topbar-wrap .topbar-link-first {
+    padding-left: 0;
+    background: 0 0
+}
+#header {
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    zoom: 1
+}
+#header h1.logo {
+    float: left;
+    background: url("../img/pay-imgs.png") no-repeat left -472px;
+    height: 33px;
+    width: 100px;
+    text-indent: -999px
+}
+#header h1.logo span {
+    width: 170px;
+    height: 45px;
+    display: block;
+    background: url("../img/pay-imgs.png") no-repeat 100px -525px
+}
+#header {
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #d9d9d9;
+    margin-top: 0;
+}
+#header .header-title {
+    width: 250px;
+    height: 60px;
+    float: left;
+}
+#header .logo {
+    float: left;
+    height: 31px;
+    width: 95px;
+    margin-top: 14px;
+    text-indent: -9999px;
+    background: none;
+}
+#header .logo-title {
+    font-size: 16px;
+    font-weight: normal;
+    border-left: 1px solid #676d70;
+    color: #676d70;
+    height: 20px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.header-container {
+    width: 950px;
+    margin: 0 auto;
+}
+body, #footer {
+    background-color: #eff0f1;
+}
+#footer {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    zoom: 1
+}
+.login-switchable-container {
+    background-color: #fff;
+}
+#order.order-bow .orderDetail-base,
+#order.order-bow .ui-detail {
+    border-bottom: 3px solid #bbb;
+    background: #eff0f1;
+    color: #000;
+}
+#order {
+    position: relative;
+    margin-top: 15px;
+    *zoom: 1;
+    *z-index: 101;
+}
+.order-ext-trigger {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    height: 22px;
+    padding: 2px 8px 1px;
+    font-weight: 700;
+    border-top: 0;
+    background: #b3b3b3;
+    z-index: 100;
+    color: #fff !important;
+}
+#partner {
+    background-color: #f7f7f7;
+    margin-top: 10px;
+    padding: 20px 0 16px;
+    text-align: center
+}
+#partner {
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #eff0f1;
+}
+#content .placeholder {
+    color: #aaa
+}
+#order.order-bow .orderDetail-base,
+#order.order-bow .ui-detail {
+    border-bottom: 3px solid #b3b3b3;
+}
+.alipay-logo {
+    display: block;
+    width: 114px;
+    position: relative;
+    left: 0;
+    top: 10px;
+    float: left;
+    height: 40px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-image: url("../img/alipay-icon2.png");
+}
+#container {
+    width: 950px;
+    margin: 0 auto;
+    overflow: hidden
+}
+.ico-shield, .ico-bow, .ico-box, .ico-assure, .order-type-navigator .icon-question {
+    display: inline-block;
+    overflow: hidden;
+    cursor: default;
+    vertical-align: middle;
+    background: url("../img/alipay-icon2.png") no-repeat
+}
+.ico-shield, .ico-bow, .ico-assure {
+    width: 47px;
+    height: 47px;
+    margin-top: -30px;
+    margin-right: 6px;
+    zoom: 1;
+    position: relative
+}
+.ico-shield {
+    background-position: -49px 0
+}
+.ico-bow {
+    background-position: -99px 0
+}
+.ico-assure {
+    background-position: 0 0
+}
+.ico-box {
+    background-position: 0 -49px;
+    width: 17px;
+    height: 12px
+}
+.order-bow .icon-question {
+    background-position: -22px -50px;
+    cursor: pointer;
+    margin: 0;
+    width: 12px;
+    height: 12px
+}
+.seller-name {
+    margin-left: 17px
+}
+#container .order-timeout-notice {
+    margin-top: 30px;
+    display: none;
+}
+
+/* 新版扫码页面样式 */
+.order-area {
+    position: relative;
+    z-index: 10;
+}
+.cashier-center-container {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    width: 950px;
+    min-height: 460px;
+    background-color: #fff;
+    border-bottom: 3px solid #b3b3b3;
+}
+.cashiser-switch-wrapper {
+    width: 1800px;
+}
+.cashier-center-view {
+    position: relative;
+    width: 803px;
+}
+.cashier-center-view.view-pc {
+    display: block;
+}
+.cashier-center-view.view-pc .loginBox {
+    padding: 60px 0 20px 238px;
+    width: 350px;
+    margin: 0;
+}
+
+/* 切换按钮 */
+.view-switch {
+    width: 146px;
+    height: 400px;
+    padding-top: 126px;
+    background-color: #e6e6e6;
+    cursor: pointer;
+    /* 禁止选中 */
+    -webkit-user-select: none;
+    /*-khtml-user-select: none;*/
+    -moz-user-select: none;
+    user-select: none;
+}
+.view-switch.qrcode-show {
+    border-left: 1px solid #d9d9d9;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.view-switch.qrcode-hide {
+    border-right: 1px solid #d9d9d9;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.switch-tip {
+    text-align: center;
+}
+.switch-tip-font {
+    font-size: 16px;
+    font-family: tahoma, arial, '\5FAE\8F6F\96C5\9ED1', '\5B8B\4F53';
+}
+.switch-tip-icon {
+    position: relative;
+    z-index: 10;
+    display: block;
+    margin-top: 4px;
+    font-size: 78px;
+    color: #a6a6a6;
+    cursor: pointer;
+}
+.switch-tip-btn {
+    display: block;
+    width: 106px;
+    height: 36px;
+    margin: 6px auto 0;
+    border: 1px solid #0fa4db;
+    background-color: #00aeef;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+.switch-tip-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.switch-pc-tip .switch-tip-icon {
+    position: relative;
+    z-index: 10;
+    margin-top: 4px;
+    font-size: 78px;
+}
+.switch-tip-icon-wrapper {
+    position: relative;
+}
+.switch-tip-icon-wrapper:before {
+    content: '';
+    position: absolute;
+    left: 47px;
+    top: 24px;
+    z-index: 0;
+    width: 50px;
+    height: 70px;
+    background-color: #fff;
+}
+.switch-qrcode-tip .switch-tip-icon-wrapper:before {
+    left: 38px;
+    top: 25px;
+    width: 70px;
+    height: 47px;
+}
+.switch-tip-icon-img {
+    position: absolute;
+    left: 58px;
+    top: 35px;
+    z-index: 11;
+}
+.switch-qrcode-tip .switch-tip-icon-img {
+    left: 48px;
+    top: 39px;
+}
+.umidWrapper {
+    display: block;
+    height: 1px;
+}
+.qrcode-area {
+    margin: 0 auto;
+    position: relative;
+}
+
+
+/* 扫码头部信息 */
+.qrcode-integration .qrcode-header {
+    display: block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 75px;
+    margin-bottom: 16px;
+}
+.qrcode-header-money {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f60;
+}
+.qrcode-integration .qrcode-img-area {
+    width: 168px;
+    height: 168px;
+    text-align: center;
+}
+.qrcode-img-area.qrcode-img-crash {
+    height: 220px;
+}
+.qrcode-reward-wrapper {
+    text-align: center;
+}
+.qrcode-reward {
+    display: inline-block;
+    margin: 0;
+    padding: 2px 5px;
+    background-color: #0188cd;
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+}
+.qrcode-integration .qrcode-loading {
+    top: 70px;
+    left: 60px;
+}
+.qrcode-integration .qrcode-img {
+    top: 70px;
+    left: 70px;
+}
+.qrcode-integration .qrcode-img-wrapper {
+    position: relative;
+    width: 168px;
+    height: auto;
+    min-height: 168px;
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid #d3d3d3;
+    -webkit-box-shadow: 1px 1px 1px #ccc;
+    box-shadow: 1px 1px 1px #ccc;
+}
+.qrcode-img-area .qrcode-busy-icon {
+    padding-top: 15px;
+}
+.qrcode-img-area .qrcode-busy-text {
+    margin-top: 20px;
+}
+a.mi-button-lwhite .mi-button-text {
+    padding: 8px 39px 4px 36px;
+}
+.qrcode-img-area .mi-button {
+    margin-top: 40px;
+}
+
+
+/* 扫码图片下方提示 */
+.qrcode-img-explain {
+    padding: 10px 0 6px;
+}
+.qrcode-img-explain img {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.qrcode-img-explain div {
+    margin-left: 10px;
+}
+.qrcode-foot {
+    text-align: center;
+}
+.qrcode-downloadApp,
+.qrcode-downloadApp:hover,
+.qrcode-downloadApp:active,
+.qrcode-explain a.qrcode-downloadApp:hover {
+    font-size: 12px;
+    color: #a6a6a6;
+    text-decoration: underline;
+}
+.qrguide-area {
+    position: absolute;
+    top: 62px;
+    left: 505px;
+    width: 204px;
+    height: 183px;
+    cursor: pointer;
+}
+.qrguide-area .qrguide-area-img {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-user-drag: none;
+}
+.qrguide-area .qrguide-area-img.active {
+    z-index: 10;
+}
+.qrguide-area .qrguide-area-img.background {
+    z-index: 9;
+}
+.qrcode-notice .qrcode-notice-title {
+    padding: 10px 10px 11px 63px;
+}
+span.btn {
+    display: inline-block;
+    line-height: 100%;
+    text-align: left;
+    text-decoration: none;
+    vertical-align: middle;
+}
+span.btn,
+span.btn input,
+span.btn button {
+    background-image: url("../img/pay-imgs.png");
+    background-repeat: repeat-x;
+    border: medium none;
+    cursor: pointer;
+    outline: medium none;
+}
+span.btn-ok,
+span.btn-ok-hover,
+span.btn-ok-disabled {
+    border: 1px solid #D74C00;
+    font-size: 14px;
+    padding: 1px;
+}
+span.btn-ok {
+    background-position: 0 0;
+    margin-left: 0;
+}
+span.btn input,
+span.btn button
+{
+    vertical-align: baseline;
+}
+span.btn-ok button,
+span.btn-ok input,
+span.btn-ok-hover button,
+span.btn-ok-hover input {
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 29px;
+    line-height: 28px;
+    padding: 0 16px 3px;
+}
+span.btn-ok button,
+span.btn-ok input {
+    background-position: 0 -70px;
+    height: 29px;
+}
+.view-case {
+    padding: 8px 0 10px 20px;
+}
+.copyright,
+.copyright a,
+.copyright a:hover {
+    color: #808080;
+}
+#order.order-bow .orderDetail-base,
+#order.order-bow .ui-detail {
+    border-bottom: 3px solid #b3b3b3;
+}
+.payAmount-area {
+    bottom: 36px;
+}
+.alipay-logo {
+    display: block;
+    width: 114px;
+    position: relative;
+    left: 0;
+    top: 10px;
+    float: left;
+    height: 40px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-image: url("../img/alipay-icon3.png");
+}
+.orderDetail-base {
+    padding: 16px 23px;
+    position: relative;
+}
+.payAmount-area {
+    position: absolute;
+    bottom: 16px;
+    right: 23px;
+    text-align: right;
+    z-index: 1;
+}
+.payAmount-area {
+    bottom: 36px;
+}
+.payAmount-area .amount-font-22 {
+    font-size: 22px;
+    line-height: 22px;
+    color: #f60;
+}
+.qrcode-foot {
+    height: 65px;
+    padding: 10px 0;
+    display: none
+}
+.qrcode-explain {
+    margin: 0;
+    font-size: 14px
+}
+.qrcode-explain a:hover {
+    text-decoration: none
+}
+.qrcode-notice {
+    width: 230px;
+    margin: 0 auto
+}
+.qrcode-notice .qrcode-notice-title {
+    padding: 10px 3px 11px 63px;
+    text-align: left;
+    border-radius: 3px
+}
+.ui-tip .ui-dialog-content {
+    padding: 5px 12px 10px;
+    color: #000;
+}
+.ui-tip .ui-dialog-container {
+    background-color: #fff;
+    margin: 2px;
+    border: solid 1px #B3B3B3;
+    width: 308px;
+    z-index: 1;
+}
+.ui-dialog-container {
+    *display: inline-block;
+    _display: inline;
+    height: 100%;
+    position: relative;
+    zoom: 1;
+}
+.ui-tip .ui-icon-dialog-arrow, .ui-privilege-tip .ui-icon-dialog-arrow {
+    background: url("../img/icon3.png") 999px 999px no-repeat;
+}
+.ui-icon-dialog-arrow {
+    position: absolute;
+    left: 50%;
+    background-repeat: no-repeat;
+}
+.ui-tip .ui-icon-dialog-arrow{
+    background-position: -2px -13px;
+    height: 16px;
+    left: -6px;
+    margin-top: 12px;
+    text-indent: -999px;
+    top: 0;
+    width: 9px;
+    z-index: 1;
+}
+.question-mark-hover:hover .ui-question-tip{
+    display: block;
+}

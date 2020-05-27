@@ -3,6 +3,8 @@ header("Content-type: text/html; charset=utf-8");
 require_once 'pay/model/builder/AlipayTradePrecreateContentBuilder.php';
 require_once 'pay/service/AlipayTradeService.php';
 
+
+$price = $_GET['price'] ?? 100;
 // (必填) 商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
 // 需保证商户系统端不能重复，建议通过数据库sequence生成，
 //$outTradeNo = "qrpay".date('Ymdhis').mt_rand(100,1000);
@@ -13,7 +15,7 @@ $subject = '扫码付款';
 
 // (必填) 订单总金额，单位为元，不能超过1亿元
 // 如果同时传入了【打折金额】,【不可打折金额】,【订单总金额】三者,则必须满足如下条件:【订单总金额】=【打折金额】+【不可打折金额】
-$totalAmount = 10;
+$totalAmount = $price;
 //$totalAmount = 0.22;
 // (不推荐使用) 订单可打折金额，可以配合商家平台配置折扣活动，如果订单部分商品参与打折，可以将部分商品总价填写至此字段，默认全部商品可打折
 // 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
@@ -156,41 +158,230 @@ $qr = base64_encode($qr);
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-cn">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>支付助手</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        .qr-code {
-            margin: 10% 0 0 40%;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>alipay</title>
+    <link type="text/css" rel="stylesheet" href="./css/style.css" />
 </head>
-<body>
-<div class="content-container qr-code">
-    <h3>支付宝付款：￥<?php echo $totalAmount; ?>后下载</h3>
-    <img src="./pay.php?url=<?php echo $qr; ?>">
+<body style="min-width:990px;">
+<div class="topbar">
+    <div class="topbar-wrap fn-clear">
+        <a href="https://help.alipay.com/lab/help_detail.htm?help_id=258086" class="topbar-link-last" target="_blank">常见问题</a>
+        <span class="topbar-link-first">你好，欢迎使用支付宝付款！</span>
+    </div>
 </div>
 
+<div id="header">
+    <div class="header-container fn-clear">
+        <div class="header-title">
+            <div class="alipay-logo"></div>
+            <span class="logo-title">我的收银台</span>
+        </div>
+    </div>
+</div>
 
-<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<div id="container">
+    <div class="mi-notice mi-notice-success mi-notice-titleonly order-timeout-notice" id="J_orderPaySuccessNotice">
+        <div class="mi-notice-cnt">
+            <div class="mi-notice-title">
+                <i class="iconfont" title="支付成功"></i>
+                <h3>支付成功，<span class="ft-orange" id="J_countDownSecond">3</span> 秒后自动返回商户。</h3>
+            </div>
+        </div>
+    </div>
 
+    <div class="mi-notice mi-notice-error mi-notice-titleonly order-timeout-notice" id="J_orderDeadlineNotice">
+        <div class="mi-notice-cnt">
+            <div class="mi-notice-title">
+                <i class="iconfont" title="交易超时"></i>
+
+                <h3>抱歉，您的交易因超时已失败。</h3>
+
+                <p class="mi-notice-explain-other">
+                    您订单的最晚付款时间为： <span id="J_orderDeadline"></span>，目前已过期，交易关闭。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面主体 -->
+    <div id="content" class="fn-clear">
+
+        <div id="J_order" class="order-area" data-module="excashier/login/2015.08.01/orderDetail">
+            <div id="order" data-role="order" class="order order-bow">
+                <div class="orderDetail-base" data-role="J_orderDetailBase">
+                    <div class="order-extand-explain fn-clear">
+                            <span class="fn-left explain-trigger-area order-type-navigator" style="cursor: auto" data-role="J_orderTypeQuestion">
+                                <span>正在使用即时到账交易</span>
+                                <span class="question-mark-hover" data-role="J_questionIcon" style="cursor: pointer;color: #08c;">[?]
+                                    <div class="ui-tip ui-question-tip fn-hide" data-role="J_exchangeTip" style="left: 174px;top: 4px;">
+                                        <div class="ui-dialog-container" style="width: 280px;">
+                                            <ul class="ui-dialog-content">
+                                                <li>
+                                                    1、支付宝不收取任何货币兑换手续费。
+                                                </li>
+                                                <li>
+                                                    2、最终支付金额为人民币金额，非外币金额。
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="ui-icon-dialog-arrow">
+                                            ↓
+                                        </div>
+                                    </div>
+                                </span>
+                            </span>
+                    </div>
+                    <div class="commodity-message-row">
+                            <span class="first long-content">
+                                QQ号购买:CFP202005261527443937
+                            </span>
+                        <span class="second short-content">
+                                收款方：QQ号购买
+                            </span>
+                    </div>
+                    <span class="payAmount-area" id="J_basePriceArea">
+                            <strong class=" amount-font-22 "><?php echo $totalAmount?></strong> 元
+                        </span>
+                </div>
+
+                <a id="J_OrderExtTrigger" class="order-ext-trigger">
+                    订单详情
+                </a>
+            </div>
+        </div>
+
+        <!-- 操作区 -->
+        <div class="cashier-center-container">
+
+            <div data-module="excashier/login/2020.02.23/loginPwdMemberT" id="J_loginPwdMemberTModule" class="cashiser-switch-wrapper fn-clear">
+                <!-- 扫码支付页面 -->
+                <div class="cashier-center-view view-qrcode fn-left" id="J_view_qr">
+
+                    <!-- 扫码区域 -->
+                    <div data-role="qrPayArea" class="qrcode-integration qrcode-area" id="J_qrPayArea">
+                        <div class="qrcode-header">
+                            <div class="ft-center">扫一扫付款（元）</div>
+                            <div class="ft-center qrcode-header-money"><?php echo $totalAmount?></strong></div>
+                        </div>
+
+                        <div data-role="qrPayCrash" class="qrcode-img-area qrcode-img-crash fn-hide">
+                            <div class="qrcode-busy-icon">
+                                <i class="iconfont qrpay-crash-icon"></i>
+                            </div>
+                            <p class="qrcode-busy-text ft-16">二维码太忙了,<br>请稍后再试</p>
+                            <a href="https://excashier.alipay.com/standard/auth.htm?payOrderId=ec7809b421454893bdc17c60605eb04d.80#" class="mi-button mi-button-lwhite" data-role="qrPayRefreshBtn">
+                                <span class="mi-button-text">重试</span>
+                            </a>
+                        </div>
+
+                        <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
+                            <div data-role="qrPayImg" class="qrcode-img-area">
+                                <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading" style="display: none;">加载中</div>
+                                <div style="position: relative;display: inline-block;">
+                                    <canvas width="168" height="168" style="float: left;"></canvas>
+                                    <img src="./pay.php?url=<?php echo $qr; ?>" alt="二维码" style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;">
+                                    <img src="./img/alipay-qrcode.png" style="display: none; position: absolute;top: 50%;left: 50%;width:42px;height:42px;margin-left: -21px;margin-top: -21px">
+                                </div>
+                            </div>
+
+                            <div class="qrcode-img-explain fn-clear">
+                                <img class="fn-left" src="./img/qrcode-scan.png" alt="扫一扫标识">
+                                <div class="fn-left">打开手机支付宝<br>扫一扫继续付款</div>
+                            </div>
+                        </div>
+
+                        <div class="qrcode-foot" data-role="qrPayFoot" style="display: block;">
+                            <div data-role="qrPayExplain" class="qrcode-explain fn-hide" style="display: block;">
+                                <a href="https://mobile.alipay.com/index.htm" class="qrcode-downloadApp" data-role="dl-app" target="_blank">首次使用请下载手机支付宝</a>
+                            </div>
+
+                            <div data-role="qrPayScanSuccess" class="mi-notice mi-notice-success mi-notice-titleonly qrcode-notice fn-hide">
+                                <div class="mi-notice-cnt">
+                                    <div class="mi-notice-title qrcode-notice-title">
+                                        <i class="iconfont qrcode-notice-iconfont" title="扫描成功"></i>
+                                        <p class="mi-notice-explain-other qrcode-notice-explain ft-break">
+                                            <span class="ft-orange fn-mr5" data-role="qrPayAccount"></span>已创建订单，请在手机支付宝上完成付款
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 指引区域 -->
+                    <div class="qrguide-area" id="J_qrguideArea">
+                        <img src="./img/tips2.png" class="qrguide-area-img background">
+                        <img src="./img/tips1.png" class="qrguide-area-img active" style="display: block;">
+                    </div>
+                </div>
+
+
+                <!-- 点击切换区域 -->
+                <div class="view-switch qrcode-show fn-left" style="display: block;" id="J_viewSwitcher" unselectable="on" onselectstart="return false;">
+
+                    <div class="switch-tip switch-qrcode-tip " id="J_tip_qr">
+                        <div class="switch-tip-font">&nbsp;</div>
+                        <div class="switch-tip-icon-wrapper">
+                            <i class="switch-tip-icon iconfont" title="显示器"></i>
+                            <img class="switch-tip-icon-img" src="./img/alipay-icon.png" alt="支付宝图标" width="50" height="17">
+                        </div>
+                        <a class="switch-tip-btn" style="color: #FFF;" href="javascript:void(0)">&lt;&nbsp;扫一扫付款</a>
+                    </div>
+
+                    <div class="switch-tip switch-pc-tip fn-hide" id="J_tip_pc">
+                        <div class="switch-tip-font">试试手机支付宝</div>
+                        <div class="switch-tip-icon-wrapper">
+                            <i class="switch-tip-icon iconfont" title="手机"></i>
+                            <img class="switch-tip-icon-img" src="./img/alipay-qrcode.png" alt="手机支付宝图标" width="30" height="30">
+                        </div>
+                        <a class="switch-tip-btn" href="javascript:void(0)">扫一扫付款&nbsp;&gt;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 操作区 结束 -->
+    </div>
+    <!-- 页面主体 结束 -->
+
+    <div id="footer">
+        <!-- FD:231:alipay/foot/copyright.vm:START -->
+        <!-- FD:231:alipay/foot/copyright.vm:2604:foot/copyright.schema:支付宝copyright:START -->
+        <div class="copyright">
+        </div>
+        <!-- FD:231:alipay/foot/copyright.vm:2604:foot/copyright.schema:支付宝copyright:END -->
+        <!-- FD:231:alipay/foot/copyright.vm:END -->
+    </div>
+</div>
+
+<div id="partner">
+    <img alt="合作机构" src="./img/partner.png">
+</div>
+</body>
+<!-- js start -->
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+    /*==============================================  变量定义  ==============================================*/
+    var $qrguideAreaImg = $('.qrguide-area-img');
+
+    /*==============================================  事件绑定  ==============================================*/
+
+    // 切换提示图片
+    var changeQrguide = {
+        init: function(){
+            changeQrguide.bingImgClick();
+        },
+        bingImgClick: function(){
+            $qrguideAreaImg.on('click', function(){
+                $(this).hide().siblings().show();
+            })
+        }
+    }
+    changeQrguide.init()
+</script>
 <script>
     var no = '<?php echo $out_trade_no;?>';
 
@@ -206,6 +397,4 @@ $qr = base64_encode($qr);
 
     var int = self.setInterval("check()", 5000);
 </script>
-
-</body>
 </html>
